@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 
-type WEEKDAY = 'MON' | 'TUE' | 'WED' | 'THU' | 'FRI' | 'SAT' | 'SUN'
+export type WEEKDAY = 'MON' | 'TUE' | 'WED' | 'THU' | 'FRI' | 'SAT' | 'SUN'
 
 export interface MarketDayData {
   weekday: WEEKDAY

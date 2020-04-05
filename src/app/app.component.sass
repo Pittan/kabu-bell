@@ -1,10 +1,14 @@
 $header-height: 44px
+$footer-height: 40px
 
 \:host
   display: block
   //min-height: 100vh
   background-color: #E4E6D6
   padding-top: $header-height
+  padding-bottom: $footer-height
+  padding-bottom: calc(#{$footer-height} + constant(safe-area-inset-bottom))
+  padding-bottom: calc(#{$footer-height} + env(safe-area-inset-bottom))
 
 .header
   position: fixed
@@ -22,3 +26,33 @@ $header-height: 44px
     color: #ffffff
     text-decoration: none
     font-weight: bold
+
+.footer
+  position: fixed
+  bottom: 0
+  left: 0
+  width: 100%
+  background-color: #fff
+  padding-bottom: 0
+  padding-bottom: constant(safe-area-inset-bottom)
+  padding-bottom: env(safe-area-inset-bottom)
+
+  .row
+    height: $footer-height
+    display: flex
+
+    .button
+      flex: 1
+      display: flex
+      flex-direction: column
+      align-items: center
+      justify-content: center
+
+      .icon
+        height: 12px
+        width: 12px
+        background-color: #e0e0e0
+        margin-bottom: 4px
+
+      .label
+        font-size: 10px

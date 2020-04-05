@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MarketChartComponent } from './market-chart/market-chart.component'
+import { MarketChartComponent } from './market-chart/market-chart.component';
+import { WeekdayPipe } from './weekday.pipe'
 
 @NgModule({
-  declarations: [MarketChartComponent],
-  exports: [ MarketChartComponent ],
+  declarations: [MarketChartComponent, WeekdayPipe],
+  exports: [ MarketChartComponent, WeekdayPipe ],
   imports: [
     CommonModule
   ]

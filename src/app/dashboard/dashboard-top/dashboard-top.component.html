@@ -1,4 +1,4 @@
-<div class="graph-area">
+<div class="graph-area" #graphArea>
   <h2>{{islandName || '-------'}}島のカブ価</h2>
   <app-market-chart class="graph" *ngIf="data && !noData && !loading" [data]="data" [basePrice]="basePrice"></app-market-chart>
 
@@ -15,8 +15,8 @@
   </div>
 </div>
 
-<button class="btn">カブ価を編集する</button>
-<button class="btn">カブ価をシェアする</button>
+<!--<button class="btn">カブ価を編集する</button>-->
+<!--<button class="btn" (click)="share()">カブ価の画像をダウンロード</button>-->
 
 <div class="input-row">
   <span class="label">購入時の価格</span>
@@ -27,7 +27,7 @@
 </div>
 
 <div class="input-row" *ngFor="let day of weekdays">
-  <span class="label">{{day.day}}曜日</span>
+  <span class="label">{{day.day | weekday}}曜日</span>
   <div class="container">
     <input type="number" [(ngModel)]="day.am" (ngModelChange)="update()" placeholder="AM">
     <span>ベル</span>
