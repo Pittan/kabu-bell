@@ -18,3 +18,14 @@
 <div class="input-group" *ngIf="!loading && noData">
   <a class="btn" routerLink="/edit">カブ価を入力する</a>
 </div>
+
+<div class="announcement" *ngIf="isAnnouncementShown">
+  <div class="balloon">
+    <h2>ホーム画面に追加をすると便利です</h2>
+    <div class="description">
+      毎日カブ価をメモしやすくするために、<br>
+      ホーム画面に追加しましょう！
+    </div>
+    <button class="btn close" (click)="closeAnnouncement()">閉じる</button>
+  </div>
+</div>

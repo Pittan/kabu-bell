@@ -24,6 +24,8 @@ export class DashboardTopComponent implements OnInit {
 
   basePrice = 100
 
+  isAnnouncementShown = false
+
   weekdays = [
     { day: '月', am: 0, pm: 0 },
     { day: '火', am: 0, pm: 0 },
@@ -36,6 +38,9 @@ export class DashboardTopComponent implements OnInit {
   ngOnInit () {
     this.islandName = this.storage.getData(StorageKeys.ISLAND_NAME)
     const marketWeekData = this.storage.getData(StorageKeys.MARKET_WEEK_DATA)
+    if (!this.storage.getData(StorageKeys.SHOWN_ADD_TO_HOME_SCREEN_ANNOUNCEMENT)) {
+      this.isAnnouncementShown = true
+    }
 
     this.noData = !marketWeekData
     if (this.noData) {
@@ -59,6 +64,11 @@ export class DashboardTopComponent implements OnInit {
       })
     })
     this.data = arr
+  }
+
+  closeAnnouncement () {
+    this.isAnnouncementShown = false
+    this.storage.setData(StorageKeys.SHOWN_ADD_TO_HOME_SCREEN_ANNOUNCEMENT, true)
   }
 
   // share () {
