@@ -1,4 +1,5 @@
 $button-color: #6D985A
+$button-color-danger: #983837
 
 \:host
   display: block
@@ -43,3 +44,9 @@ $button-color: #6D985A
 
     &:active
       background-color: darken($button-color, 10%)
+
+    &.danger
+      background-color: $button-color-danger
+      &:active
+        background-color: darken($button-color-danger, 10%)
+

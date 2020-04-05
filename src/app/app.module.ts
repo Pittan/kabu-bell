@@ -9,6 +9,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { RouterModule } from '@angular/router'
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { RouterModule } from '@angular/router'
     SharedModule,
     DashboardModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    RouterModule
+    RouterModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
