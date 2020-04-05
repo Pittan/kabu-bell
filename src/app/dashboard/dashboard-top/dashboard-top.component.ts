@@ -1,14 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
-import { MarketDayData, StorageKeys, StorageService } from '../../../shared/storage.service'
-
-const DEFAULT_WEEK_DATA: MarketDayData[] = [
-  { weekday: 'MON', amPrice: 0, pmPrice: 0 },
-  { weekday: 'TUE', amPrice: 0, pmPrice: 0 },
-  { weekday: 'WED', amPrice: 0, pmPrice: 0 },
-  { weekday: 'THU', amPrice: 0, pmPrice: 0 },
-  { weekday: 'FRI', amPrice: 0, pmPrice: 0 },
-  { weekday: 'SAT', amPrice: 0, pmPrice: 0 },
-]
+import { StorageKeys, StorageService } from '../../../shared/storage.service'
 
 @Component({
   selector: 'app-dashboard-top',
@@ -45,8 +36,13 @@ export class DashboardTopComponent implements OnInit {
   ngOnInit () {
     this.islandName = this.storage.getData(StorageKeys.ISLAND_NAME)
     const marketWeekData = this.storage.getData(StorageKeys.MARKET_WEEK_DATA)
+
     this.noData = !marketWeekData
-    if (this.noData) return
+    if (this.noData) {
+      this.loading = false
+      return
+    }
+
     this.basePrice = marketWeekData.priceWhenPurchased
     this.weekdays = marketWeekData.weekData.map(day => {
       return { day: day.weekday, am: day.amPrice, pm: day.pmPrice }

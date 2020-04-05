@@ -14,3 +14,7 @@
     </div>
   </div>
 </div>
+
+<div class="input-group" *ngIf="!loading && noData">
+  <a class="btn" routerLink="/edit">カブ価を入力する</a>
+</div>

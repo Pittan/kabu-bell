@@ -1,1 +1,19 @@
-<p>setting works!</p>
+<div class="input-group">
+  <div class="license">
+    <div class="logo"></div>
+    <div class="description">
+      カブベル<br>
+      Pittan: @pittanko_pta
+    </div>
+  </div>
+</div>
+
+<div class="input-group">
+  <div class="title" *ngIf="updateAvailable">更新があります</div>
+  <button class="button" (click)="updateNow()">{{ updateAvailable ? '更新する' : 'リロードする' }}</button>
+</div>
+
+<div class="input-group">
+  <button class="button" (click)="reset()">カブ価をリセットする</button>
+
+</div>

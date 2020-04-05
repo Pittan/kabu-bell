@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core'
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core'
+import { isPlatformBrowser } from '@angular/common'
 
 export type WEEKDAY = 'MON' | 'TUE' | 'WED' | 'THU' | 'FRI' | 'SAT' | 'SUN'
 
@@ -25,17 +26,30 @@ export enum StorageKeys {
 })
 export class StorageService {
 
-  constructor () { }
+  constructor (
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) { }
 
   setData (key: StorageKeys.MARKET_WEEK_DATA, data: MarketWeekData): void
   setData (key: StorageKeys.DODO_KEY | StorageKeys.ISLAND_NAME | StorageKeys.NSO_FRIEND_CODE, data: string): void
   setData (key: StorageKeys, data: any): void {
-    localStorage.setItem(key, JSON.stringify(data))
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem(key, JSON.stringify(data))
+    }
   }
 
   getData (key: StorageKeys.MARKET_WEEK_DATA): MarketWeekData
   getData (key: StorageKeys.DODO_KEY | StorageKeys.ISLAND_NAME | StorageKeys.NSO_FRIEND_CODE): string
   getData (key: StorageKeys) {
-    return JSON.parse(localStorage.getItem(key))
+    if (isPlatformBrowser(this.platformId)) {
+      return JSON.parse(localStorage.getItem(key))
+    }
+    return undefined
+  }
+
+  removeData (key: StorageKeys) {
+    if (isPlatformBrowser(this.platformId)) {
+      return localStorage.removeItem(key)
+    }
   }
 }
