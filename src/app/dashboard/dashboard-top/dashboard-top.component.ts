@@ -1,7 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { StorageKeys, StorageService } from '../../../shared/storage.service'
-import htmlToImage from 'html-to-image'
-import download from 'downloadjs'
 
 @Component({
   selector: 'app-dashboard-top',
