@@ -1,0 +1,39 @@
+<div class="graph-area">
+  <h2>{{islandName || '-------'}}島のカブ価</h2>
+  <app-market-chart class="graph" *ngIf="data && !noData && !loading" [data]="data" [basePrice]="basePrice"></app-market-chart>
+
+  <div class="dummy" *ngIf="loading || noData">
+    <div class="graph-dummy">
+      <div class="no-data" *ngIf="noData">データがありません</div>
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col"></div>
+    </div>
+  </div>
+</div>
+
+<button class="btn">カブ価を編集する</button>
+<button class="btn">カブ価をシェアする</button>
+
+<div class="input-row">
+  <span class="label">購入時の価格</span>
+  <div class="container col-2">
+    <input type="number" [(ngModel)]="basePrice" placeholder="購入価格">
+    <span>ベル</span>
+  </div>
+</div>
+
+<div class="input-row" *ngFor="let day of weekdays">
+  <span class="label">{{day.day}}曜日</span>
+  <div class="container">
+    <input type="number" [(ngModel)]="day.am" (ngModelChange)="update()" placeholder="AM">
+    <span>ベル</span>
+  </div>
+  <div class="container">
+    <input type="number" [(ngModel)]="day.pm" (ngModelChange)="update()" placeholder="PM">
+    <span>ベル</span>
+  </div>
+</div>
