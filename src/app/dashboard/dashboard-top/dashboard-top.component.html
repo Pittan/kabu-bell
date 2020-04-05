@@ -14,26 +14,3 @@
     </div>
   </div>
 </div>
-
-<!--<button class="btn">カブ価を編集する</button>-->
-<!--<button class="btn" (click)="share()">カブ価の画像をダウンロード</button>-->
-
-<div class="input-row">
-  <span class="label">購入時の価格</span>
-  <div class="container col-2">
-    <input type="number" [(ngModel)]="basePrice" placeholder="購入価格">
-    <span>ベル</span>
-  </div>
-</div>
-
-<div class="input-row" *ngFor="let day of weekdays">
-  <span class="label">{{day.day | weekday}}曜日</span>
-  <div class="container">
-    <input type="number" [(ngModel)]="day.am" (ngModelChange)="update()" placeholder="AM">
-    <span>ベル</span>
-  </div>
-  <div class="container">
-    <input type="number" [(ngModel)]="day.pm" (ngModelChange)="update()" placeholder="PM">
-    <span>ベル</span>
-  </div>
-</div>

@@ -1,5 +1,14 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
-import { StorageKeys, StorageService } from '../../../shared/storage.service'
+import { MarketDayData, StorageKeys, StorageService } from '../../../shared/storage.service'
+
+const DEFAULT_WEEK_DATA: MarketDayData[] = [
+  { weekday: 'MON', amPrice: 0, pmPrice: 0 },
+  { weekday: 'TUE', amPrice: 0, pmPrice: 0 },
+  { weekday: 'WED', amPrice: 0, pmPrice: 0 },
+  { weekday: 'THU', amPrice: 0, pmPrice: 0 },
+  { weekday: 'FRI', amPrice: 0, pmPrice: 0 },
+  { weekday: 'SAT', amPrice: 0, pmPrice: 0 },
+]
 
 @Component({
   selector: 'app-dashboard-top',
@@ -7,7 +16,6 @@ import { StorageKeys, StorageService } from '../../../shared/storage.service'
   styleUrls: ['./dashboard-top.component.sass']
 })
 export class DashboardTopComponent implements OnInit {
-  // data = [58, 120, 88, 88, 88, 92, 57, 105, 88, 92, 59, 122];
 
   constructor (
     private storage: StorageService
@@ -35,18 +43,6 @@ export class DashboardTopComponent implements OnInit {
   ]
 
   ngOnInit () {
-    this.storage.setData(StorageKeys.MARKET_WEEK_DATA, {
-      priceWhenPurchased: 100,
-      weekData: [
-        { weekday: 'MON', amPrice: 100, pmPrice: 99 },
-        { weekday: 'TUE', amPrice: 95, pmPrice: 92 },
-        { weekday: 'WED', amPrice: 90, pmPrice: 66 },
-        { weekday: 'THU', amPrice: 34, pmPrice: 13 },
-        { weekday: 'FRI', amPrice: 123, pmPrice: 230 },
-        { weekday: 'SAT', amPrice: 99, pmPrice: 67 }
-      ]
-    })
-    this.storage.setData(StorageKeys.ISLAND_NAME, 'えれふぁん')
     this.islandName = this.storage.getData(StorageKeys.ISLAND_NAME)
     const marketWeekData = this.storage.getData(StorageKeys.MARKET_WEEK_DATA)
     this.noData = !marketWeekData

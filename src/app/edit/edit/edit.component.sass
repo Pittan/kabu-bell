@@ -1,0 +1,60 @@
+\:host
+  display: block
+  min-height: 100vh
+  background-color: #E4E6D6
+  padding: 16px
+  width: 100vw
+  overflow-x: hidden
+  color: #424242
+
+input
+  background-color: #E4E6D6
+  border: none
+  height: 30px
+  border-radius: 5px
+  padding: 4px
+  font-size: 16px
+  color: #414141
+
+  &::placeholder
+    color: #aaaaaa
+
+.input-group
+  background-color: #fff
+  border-radius: 10px
+  padding: 16px
+  margin-bottom: 8px
+
+  .title
+    font-size: 12px
+    margin-bottom: 4px
+
+.input-row
+  display: flex
+  align-items: center
+  margin-bottom: 4px
+
+  .label
+    font-size: 12px
+    margin-right: 8px
+    flex: none
+    width: 30px
+
+  .container
+    flex: 1
+    display: flex
+    align-items: center
+
+    &.col-2
+      flex: 2
+
+    &:not(:last-child)
+      margin-right: 20px
+
+    input
+      width: 100%
+
+    span
+      margin-left: 4px
+      font-size: 12px
+      flex: none

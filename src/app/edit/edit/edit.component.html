@@ -1,1 +1,37 @@
-<p>edit works!</p>
+<div class="input-group">
+  <div class="title">島の名前</div>
+  <div class="input-row">
+    <div class="container col-2">
+      <input type="text" [(ngModel)]="islandName" (ngModelChange)="update()"  placeholder="入力してください">
+      <span>島</span>
+    </div>
+  </div>
+</div>
+
+
+<div class="input-group">
+  <div class="title">購入時のカブ価</div>
+  <div class="input-row">
+    <div class="container col-2">
+      <input type="number" step="1" [(ngModel)]="basePrice" (ngModelChange)="update()"  placeholder="購入価格">
+      <span>ベル</span>
+    </div>
+  </div>
+</div>
+
+
+<div class="input-group">
+  <div class="title">カブ価</div>
+  <div class="input-row" *ngFor="let day of weekdays">
+    <span class="label">{{day.weekday | weekday}}</span>
+    <div class="container">
+      <input type="number" step="1" [(ngModel)]="day.amPrice" (ngModelChange)="update()" placeholder="AM">
+      <span>ベル</span>
+    </div>
+    <div class="container">
+      <input type="number" step="1" [(ngModel)]="day.pmPrice" (ngModelChange)="update()" placeholder="PM">
+      <span>ベル</span>
+    </div>
+  </div>
+</div>
+
