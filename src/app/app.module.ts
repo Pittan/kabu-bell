@@ -5,7 +5,9 @@ import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { SharedModule } from '../shared/shared.module'
 import { FormsModule } from '@angular/forms'
-import { DashboardModule } from './dashboard/dashboard.module'
+import { DashboardModule } from './dashboard/dashboard.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment'
 
 @NgModule({
   declarations: [
@@ -16,7 +18,8 @@ import { DashboardModule } from './dashboard/dashboard.module'
     FormsModule,
     AppRoutingModule,
     SharedModule,
-    DashboardModule
+    DashboardModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]
