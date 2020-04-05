@@ -1,8 +1,8 @@
 {
-  "name": "kabu-bell",
-  "short_name": "kabu-bell",
-  "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "name": "カブベル",
+  "short_name": "カブベル",
+  "theme_color": "#2AB766",
+  "background_color": "#E4E6D6",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
