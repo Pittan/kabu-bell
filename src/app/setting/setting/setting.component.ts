@@ -37,7 +37,11 @@ export class SettingComponent implements OnInit, OnDestroy {
   }
 
   updateNow () {
-    this.update.updates.activateUpdate().then(() => document.location.reload())
+    if (!this.updateAvailable) {
+      document.location.reload()
+    } else {
+      this.update.updates.activateUpdate().then(() => document.location.reload())
+    }
   }
 
 }
