@@ -1,13 +1,22 @@
 import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
-import { DashboardTopComponent } from './dashboard/dashboard-top/dashboard-top.component'
-
 
 const routes: Routes = [
   {
     path: '',
-    component: DashboardTopComponent,
-    pathMatch: 'full'
+    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+  },
+  {
+    path: 'edit',
+    loadChildren: () => import('./edit/edit.module').then(m => m.EditModule)
+  },
+  {
+    path: 'settings',
+    loadChildren: () => import('./setting/setting.module').then(m => m.SettingModule)
+  },
+  {
+    path: '**',
+    redirectTo: ''
   }
 ]
 

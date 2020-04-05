@@ -8,17 +8,17 @@
 
 <div class="footer">
   <div class="row">
-    <a class="button">
+    <a class="button" routerLink="" routerLinkActive="selected" [routerLinkActiveOptions]="{ exact: true }">
       <div class="icon"></div>
       <div class="label">チャート</div>
     </a>
 
-    <a class="button">
+    <a class="button" routerLink="/edit" routerLinkActive="selected">
       <div class="icon"></div>
       <div class="label">編集</div>
     </a>
 
-    <a class="button">
+    <a class="button" routerLink="/settings" routerLinkActive="selected">
       <div class="icon"></div>
       <div class="label">その他</div>
     </a>

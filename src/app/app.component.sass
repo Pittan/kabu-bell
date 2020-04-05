@@ -55,6 +55,17 @@ $footer-height: 40px
       flex-direction: column
       align-items: center
       justify-content: center
+      color: #424242
+      text-decoration: none
+
+      &:visited
+        color: #424242
+
+      &.selected
+        .icon
+          background-color: #2AB766
+        .label
+          color: #2AB766
 
       .icon
         height: 12px
@@ -64,3 +75,5 @@ $footer-height: 40px
 
       .label
         font-size: 10px
+
+
