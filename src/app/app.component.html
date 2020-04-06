@@ -1,11 +1,9 @@
 <div class="header">
   <div class="row">
-    <div class="back-button-container">
-      <a class="nav-back" [routerLink]="getPreviousUrl()" *ngIf="history.length > 1">
-        <fa-icon [icon]="faChevronLeft" size="1x"></fa-icon>
-      </a>
-    </div>
-    <a href="/">カブベル</a>
+    <a class="back-button-container" [routerLink]="getPreviousUrl()" *ngIf="history.length > 1">
+      <fa-icon [icon]="faChevronLeft" size="1x"></fa-icon>
+    </a>
+    <a href="/" class="title">カブベル</a>
   </div>
 </div>
 

@@ -30,7 +30,7 @@ $footer-height: 40px
     height: $header-height
     position: relative
 
-    .back-button-container
+    a.back-button-container
       height: 44px
       width: 44px
       display: flex
@@ -39,13 +39,11 @@ $footer-height: 40px
       position: absolute
       top: 0
       left: 0
+      color: #fff
+      &:active
+        opacity: .8
 
-      > a
-        color: #fff
-        &:active
-          opacity: .8
-
-    > a
+    > a.title
       color: #ffffff
       text-decoration: none
       font-weight: bold
