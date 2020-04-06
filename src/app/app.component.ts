@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   faCog = faCog
   faChevronLeft = faChevronLeft
 
-  private history = []
+  history = []
 
   constructor (
     private router: Router,
