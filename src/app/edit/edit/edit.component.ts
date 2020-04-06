@@ -35,7 +35,6 @@ export class EditComponent implements OnInit {
 
   ngOnInit () {
     this.islandName = this.storage.getData(StorageKeys.ISLAND_NAME) || ''
-    console.log(this.islandName)
     const marketWeekData = this.storage.getData(StorageKeys.MARKET_WEEK_DATA) || DEFAULT_DATA
     this.basePrice = marketWeekData.priceWhenPurchased
     this.weekdays = marketWeekData.weekData
