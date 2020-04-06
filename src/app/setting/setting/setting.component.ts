@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { CheckForUpdateService } from '../../../shared/check-for-update.service'
 import { Subscription } from 'rxjs'
 import { StorageKeys, StorageService } from '../../../shared/storage.service'
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight'
 
 @Component({
   selector: 'app-setting',
@@ -11,6 +12,8 @@ import { StorageKeys, StorageService } from '../../../shared/storage.service'
 export class SettingComponent implements OnInit, OnDestroy {
 
   private subscription = new Subscription()
+
+  faChevronRight = faChevronRight
 
   updateAvailable = false
 

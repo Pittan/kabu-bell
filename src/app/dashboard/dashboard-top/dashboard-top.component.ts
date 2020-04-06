@@ -1,5 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import { Component, ElementRef, Inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core'
 import { StorageKeys, StorageService } from '../../../shared/storage.service'
+import { isPlatformBrowser } from '@angular/common'
 
 @Component({
   selector: 'app-dashboard-top',
@@ -9,6 +10,7 @@ import { StorageKeys, StorageService } from '../../../shared/storage.service'
 export class DashboardTopComponent implements OnInit {
 
   constructor (
+    @Inject(PLATFORM_ID) private platformId: Object,
     private storage: StorageService
   ) {
   }
@@ -38,8 +40,10 @@ export class DashboardTopComponent implements OnInit {
   ngOnInit () {
     this.islandName = this.storage.getData(StorageKeys.ISLAND_NAME)
     const marketWeekData = this.storage.getData(StorageKeys.MARKET_WEEK_DATA)
-    if (!this.storage.getData(StorageKeys.SHOWN_ADD_TO_HOME_SCREEN_ANNOUNCEMENT)) {
-      this.isAnnouncementShown = true
+    if (isPlatformBrowser(this.platformId)) {
+      if (!this.storage.getData(StorageKeys.SHOWN_ADD_TO_HOME_SCREEN_ANNOUNCEMENT)) {
+        this.isAnnouncementShown = true
+      }
     }
 
     this.noData = !marketWeekData

@@ -1,17 +1,21 @@
-import { Injectable } from '@angular/core'
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core'
 import { environment } from '../environments/environment'
+import { isPlatformBrowser } from '@angular/common'
 
-declare let gtag: any;
+declare let gtag: any
 
 @Injectable({
   providedIn: 'root'
 })
 export class GoogleAnalyticsService {
 
-  constructor () { }
+  constructor (
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) { }
 
   private isGAAvailable (): boolean {
-    return typeof gtag !== undefined
+    if (isPlatformBrowser(this.platformId)) return typeof gtag !== undefined
+    return false
   }
 
   sendPageView (url: string): void {

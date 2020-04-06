@@ -30,6 +30,7 @@
               "src/_redirects"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.sass"
             ],
             "scripts": []
@@ -97,6 +98,7 @@
               "src/manifest.webmanifest"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.sass"
             ],
             "scripts": []
@@ -163,6 +165,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "kabu-bell"
 }

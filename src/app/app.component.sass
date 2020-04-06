@@ -27,10 +27,25 @@ $footer-height: 40px
     display: flex
     align-items: center
     justify-content: center
-
     height: $header-height
+    position: relative
 
-    a
+    .back-button-container
+      height: 44px
+      width: 44px
+      display: flex
+      align-items: center
+      justify-content: center
+      position: absolute
+      top: 0
+      left: 0
+
+      > a
+        color: #fff
+        &:active
+          opacity: .8
+
+    > a
       color: #ffffff
       text-decoration: none
       font-weight: bold
