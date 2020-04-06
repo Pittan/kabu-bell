@@ -1,6 +1,7 @@
 import { Component, ElementRef, Inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core'
 import { StorageKeys, StorageService } from '../../../shared/storage.service'
 import { isPlatformBrowser } from '@angular/common'
+import { faQuestion } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-dashboard-top',
@@ -14,6 +15,8 @@ export class DashboardTopComponent implements OnInit {
     private storage: StorageService
   ) {
   }
+
+  faQuestion = faQuestion
 
   @ViewChild('graphArea') graphElement: ElementRef<HTMLElement>
 
