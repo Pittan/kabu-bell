@@ -19,6 +19,18 @@
   <a class="btn" routerLink="/edit">カブ価を入力する</a>
 </div>
 
+<div class="tips">
+  <div class="title"><fa-icon [icon]="faQuestion" size="1x"></fa-icon>カブベルについて</div>
+  <div class="description">
+    <div class="section">
+      カブベルは、「一週間のカブ価の動向をメモする」ことに焦点を当てたミニアプリです。
+    </div>
+    <div class="section">
+      一週間ごとにリセットして使うことを想定していますが、今後のアップデートで継続的に記録できるような機能を検討中です。楽しみにお待ちください！
+    </div>
+  </div>
+</div>
+
 <div class="announcement" *ngIf="isAnnouncementShown">
   <div class="balloon">
     <h2>ホーム画面に追加をすると便利です</h2>
