@@ -5,6 +5,7 @@ import { faCog } from '@fortawesome/free-solid-svg-icons/faCog'
 import { GoogleAnalyticsService } from '../shared/google-analytics.service'
 import { NavigationEnd, Router } from '@angular/router'
 import { filter } from 'rxjs/operators'
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft'
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,9 @@ export class AppComponent implements OnInit {
   faChartLine = faChartLine
   faEdit = faEdit
   faCog = faCog
+  faChevronLeft = faChevronLeft
+
+  private history = []
 
   constructor (
     private router: Router,
@@ -31,6 +35,25 @@ export class AppComponent implements OnInit {
     .subscribe((params: any) => {
       this.googleAnalyticsService.sendPageView(params.url)
     })
+    this.loadRouting()
+  }
+
+  public loadRouting (): void {
+    this.router.events
+    .pipe(filter(event => event instanceof NavigationEnd))
+    .subscribe(({ urlAfterRedirects }: NavigationEnd) => {
+      const routeLevel = urlAfterRedirects.replace(/[^\/]/g, '').length
+      if (routeLevel === 1) {
+        this.history = [urlAfterRedirects]
+      }
+      if (routeLevel > this.history.length) {
+        this.history = [...this.history, urlAfterRedirects]
+      }
+    })
+  }
+
+  getPreviousUrl (): string {
+    return this.history[this.history.length - 2] || '/'
   }
 
 }
