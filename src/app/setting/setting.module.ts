@@ -5,6 +5,7 @@ import { SettingRoutingModule } from './setting-routing.module';
 import { SettingComponent } from './setting/setting.component';
 import { LicenseComponent } from './license/license.component';
 import { HttpClientModule } from '@angular/common/http'
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import { HttpClientModule } from '@angular/common/http'
   imports: [
     CommonModule,
     SettingRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FontAwesomeModule
   ]
 })
 export class SettingModule { }
