@@ -3,13 +3,16 @@ import { CommonModule } from '@angular/common';
 
 import { SettingRoutingModule } from './setting-routing.module';
 import { SettingComponent } from './setting/setting.component';
+import { LicenseComponent } from './license/license.component';
+import { HttpClientModule } from '@angular/common/http'
 
 
 @NgModule({
-  declarations: [SettingComponent],
+  declarations: [SettingComponent, LicenseComponent],
   imports: [
     CommonModule,
-    SettingRoutingModule
+    SettingRoutingModule,
+    HttpClientModule
   ]
 })
 export class SettingModule { }
