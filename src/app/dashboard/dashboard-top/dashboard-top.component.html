@@ -1,6 +1,12 @@
 <div class="graph-area" #graphArea>
   <h2>{{islandName || '-------'}}島のカブ価</h2>
-  <app-market-chart class="graph" *ngIf="data && !noData && !loading" [data]="data" [basePrice]="basePrice"></app-market-chart>
+  <app-market-chart
+    class="graph"
+    *ngIf="data && !noData && !loading"
+    [data]="data"
+    [basePrice]="basePrice"
+    [referencePrice]="referencePrice"
+  ></app-market-chart>
 
   <div class="dummy" *ngIf="loading || noData">
     <div class="graph-dummy">
