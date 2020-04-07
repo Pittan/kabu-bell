@@ -10,7 +10,9 @@ export interface MarketDayData {
 }
 
 export interface MarketWeekData {
-  priceWhenPurchased: number
+  priceWhenPurchased: number // 自分の島・フレンドの島関わらず購入したときの価格
+  priceForReference: number // 自分の島の日曜日時点の価格(フレンドの島で購入した場合に使います)
+  amountOfTurnips: number // 購入したカブ数(購入額はpriceWhenPurchased * amountOfTurnipsで算出する)
   weekData: MarketDayData[]
 }
 

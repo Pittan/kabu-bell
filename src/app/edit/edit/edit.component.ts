@@ -2,16 +2,18 @@ import { Component, OnInit } from '@angular/core'
 import { MarketDayData, MarketWeekData, StorageKeys, StorageService, WEEKDAY } from '../../../shared/storage.service'
 
 const DEFAULT_WEEK_DATA: MarketDayData[] = [
-  { weekday: 'MON', amPrice: 0, pmPrice: 0 },
-  { weekday: 'TUE', amPrice: 0, pmPrice: 0 },
-  { weekday: 'WED', amPrice: 0, pmPrice: 0 },
-  { weekday: 'THU', amPrice: 0, pmPrice: 0 },
-  { weekday: 'FRI', amPrice: 0, pmPrice: 0 },
-  { weekday: 'SAT', amPrice: 0, pmPrice: 0 },
+  { weekday: 'MON', amPrice: undefined, pmPrice: undefined },
+  { weekday: 'TUE', amPrice: undefined, pmPrice: undefined },
+  { weekday: 'WED', amPrice: undefined, pmPrice: undefined },
+  { weekday: 'THU', amPrice: undefined, pmPrice: undefined },
+  { weekday: 'FRI', amPrice: undefined, pmPrice: undefined },
+  { weekday: 'SAT', amPrice: undefined, pmPrice: undefined },
 ]
 
 const DEFAULT_DATA: MarketWeekData = {
-  priceWhenPurchased: 0,
+  priceWhenPurchased: undefined,
+  priceForReference: undefined,
+  amountOfTurnips: undefined,
   weekData: DEFAULT_WEEK_DATA
 }
 
@@ -24,7 +26,11 @@ export class EditComponent implements OnInit {
 
   islandName = ''
 
-  basePrice = 0
+  basePrice: number
+
+  amountOfTurnips: number
+
+  priceForReference: number
 
   weekdays: MarketDayData[] = []
 
@@ -38,11 +44,15 @@ export class EditComponent implements OnInit {
     const marketWeekData = this.storage.getData(StorageKeys.MARKET_WEEK_DATA) || DEFAULT_DATA
     this.basePrice = marketWeekData.priceWhenPurchased
     this.weekdays = marketWeekData.weekData
+    this.amountOfTurnips = marketWeekData.amountOfTurnips
+    this.priceForReference = marketWeekData.priceForReference
   }
 
   update () {
     this.storage.setData(StorageKeys.MARKET_WEEK_DATA, {
       priceWhenPurchased: this.basePrice,
+      priceForReference: this.priceForReference,
+      amountOfTurnips: this.amountOfTurnips,
       weekData: [ ...this.weekdays ]
     })
     this.storage.setData(StorageKeys.ISLAND_NAME, this.islandName)
