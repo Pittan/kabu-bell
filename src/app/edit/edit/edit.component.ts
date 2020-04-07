@@ -44,6 +44,8 @@ export class EditComponent implements OnInit {
     const marketWeekData = this.storage.getData(StorageKeys.MARKET_WEEK_DATA) || DEFAULT_DATA
     this.basePrice = marketWeekData.priceWhenPurchased
     this.weekdays = marketWeekData.weekData
+    this.amountOfTurnips = marketWeekData.amountOfTurnips
+    this.priceForReference = marketWeekData.priceForReference
   }
 
   update () {

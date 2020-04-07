@@ -27,7 +27,8 @@ export class DashboardTopComponent implements OnInit {
 
   data: number[]
 
-  basePrice = 100
+  basePrice = 0
+  referencePrice = 0
 
   isAnnouncementShown = false
 
@@ -56,6 +57,7 @@ export class DashboardTopComponent implements OnInit {
     }
 
     this.basePrice = marketWeekData.priceWhenPurchased
+    this.referencePrice = marketWeekData.priceForReference
     this.weekdays = marketWeekData.weekData.map(day => {
       return { day: day.weekday, am: day.amPrice, pm: day.pmPrice }
     })
