@@ -35,20 +35,23 @@
   </div>
 </div>
 
-<div class="input-group">
-  <div class="title">購入カブ数</div>
-  <div class="description">購入したカブ数を入力してください</div>
-  <div class="input-row">
-    <div class="container col-2">
-      <input type="number" step="1" [(ngModel)]="amountOfTurnips" (ngModelChange)="update()"  placeholder="購入数を入力してください">
-      <span>カブ</span>
-    </div>
-  </div>
-</div>
+<!--<div class="input-group">-->
+<!--  <div class="title">購入カブ数</div>-->
+<!--  <div class="description">購入したカブ数を入力してください</div>-->
+<!--  <div class="input-row">-->
+<!--    <div class="container col-2">-->
+<!--      <input type="number" step="1" [(ngModel)]="amountOfTurnips" (ngModelChange)="update()"  placeholder="購入数を入力してください">-->
+<!--      <span>カブ</span>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
 
 <div class="input-group">
   <div class="title">日曜日の自分の島のカブ価(任意)</div>
-  <div class="description">フレンドの島でカブを購入した場合、自分の島のカブの価格を入力してください</div>
+  <div class="description">
+    フレンドの島でカブを購入した場合、自分の島のカブの価格を入力してください。<br>
+    チャート上で参考値として表示されます。
+  </div>
   <div class="input-row">
     <div class="container col-2">
       <input type="number" step="1" [(ngModel)]="priceForReference" (ngModelChange)="update()"  placeholder="価格を入力してください">
