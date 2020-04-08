@@ -1,7 +1,10 @@
 import { Component, ElementRef, Inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core'
-import { StorageKeys, StorageService } from '../../../shared/storage.service'
+import { MarketDayData, StorageKeys, StorageService } from '../../../shared/storage.service'
 import { isPlatformBrowser } from '@angular/common'
 import { faQuestion } from '@fortawesome/free-solid-svg-icons'
+import { faCoins } from '@fortawesome/free-solid-svg-icons/faCoins'
+import { flatten, last } from 'lodash-es'
+import { mark } from '@angular/compiler-cli/src/ngtsc/perf/src/clock'
 
 @Component({
   selector: 'app-dashboard-top',
@@ -17,6 +20,7 @@ export class DashboardTopComponent implements OnInit {
   }
 
   faQuestion = faQuestion
+  faCoins = faCoins
 
   @ViewChild('graphArea') graphElement: ElementRef<HTMLElement>
 
@@ -31,6 +35,11 @@ export class DashboardTopComponent implements OnInit {
   referencePrice = 0
 
   isAnnouncementShown = false
+
+  amountOfTurnips: number
+  sellingPrice: number
+  buyingPrice: number
+  profit: number
 
   weekdays = [
     { day: '月', am: 0, pm: 0 },
@@ -61,6 +70,12 @@ export class DashboardTopComponent implements OnInit {
     this.weekdays = marketWeekData.weekData.map(day => {
       return { day: day.weekday, am: day.amPrice, pm: day.pmPrice }
     })
+    if (marketWeekData.amountOfTurnips && marketWeekData.priceWhenPurchased) {
+      this.amountOfTurnips = marketWeekData.amountOfTurnips
+      this.sellingPrice = this.calculate(marketWeekData.amountOfTurnips, marketWeekData.weekData)
+      this.buyingPrice = marketWeekData.priceWhenPurchased * marketWeekData.amountOfTurnips
+      this.profit = this.sellingPrice - this.buyingPrice
+    }
     this.loading = false
     this.update()
   }
@@ -73,6 +88,12 @@ export class DashboardTopComponent implements OnInit {
       })
     })
     this.data = arr
+  }
+
+  private calculate (amountOfTurnips: number, weekData: MarketDayData[]): number {
+    const numbers = flatten(weekData.map(w => [w.amPrice, w.pmPrice])).filter(v => v)
+    const latestPrice = last(numbers)
+    return latestPrice * amountOfTurnips
   }
 
   closeAnnouncement () {
