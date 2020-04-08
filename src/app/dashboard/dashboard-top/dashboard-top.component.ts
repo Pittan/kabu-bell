@@ -22,6 +22,8 @@ export class DashboardTopComponent implements OnInit {
   faQuestion = faQuestion
   faCoins = faCoins
 
+  isBrowser = false
+
   @ViewChild('graphArea') graphElement: ElementRef<HTMLElement>
 
   noData = true
@@ -51,6 +53,7 @@ export class DashboardTopComponent implements OnInit {
   ]
 
   ngOnInit () {
+    this.isBrowser = isPlatformBrowser(this.platformId)
     this.islandName = this.storage.getData(StorageKeys.ISLAND_NAME)
     const marketWeekData = this.storage.getData(StorageKeys.MARKET_WEEK_DATA)
     if (isPlatformBrowser(this.platformId)) {
