@@ -4,7 +4,6 @@ import { isPlatformBrowser } from '@angular/common'
 import { faQuestion } from '@fortawesome/free-solid-svg-icons'
 import { faCoins } from '@fortawesome/free-solid-svg-icons/faCoins'
 import { flatten, last } from 'lodash-es'
-import { mark } from '@angular/compiler-cli/src/ngtsc/perf/src/clock'
 
 @Component({
   selector: 'app-dashboard-top',
