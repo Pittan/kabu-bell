@@ -14,7 +14,7 @@
   <div class="description">自分の島・フレンドの島関係なく、カブを購入したときの1カブあたりの値段を入力してください</div>
   <div class="input-row">
     <div class="container col-2">
-      <input type="number" step="1" min="0" max="3000" [(ngModel)]="basePrice" (ngModelChange)="update()"  placeholder="価格を入力してください">
+      <input type="tel" autocomplete="off" maxlength="4" [(ngModel)]="basePrice" (ngModelChange)="update()"  placeholder="価格を入力してください">
       <span>ベル</span>
     </div>
   </div>
@@ -25,11 +25,11 @@
   <div class="input-row" *ngFor="let day of weekdays">
     <span class="label">{{day.weekday | weekday}}</span>
     <div class="container">
-      <input type="number" step="1" min="0" max="3000" [(ngModel)]="day.amPrice" (ngModelChange)="update()" placeholder="AM">
+      <input type="tel" autocomplete="off" maxlength="4" [(ngModel)]="day.amPrice" (ngModelChange)="update()" placeholder="AM">
       <span>ベル</span>
     </div>
     <div class="container">
-      <input type="number" step="1" min="0" max="3000" [(ngModel)]="day.pmPrice" (ngModelChange)="update()" placeholder="PM">
+      <input type="tel" autocomplete="off" maxlength="4" [(ngModel)]="day.pmPrice" (ngModelChange)="update()" placeholder="PM">
       <span>ベル</span>
     </div>
   </div>
@@ -40,7 +40,7 @@
   <div class="description">購入したカブ数を入力してください</div>
   <div class="input-row">
     <div class="container col-2">
-      <input type="number" step="1" min="0" max="999999" [(ngModel)]="amountOfTurnips" (ngModelChange)="update()"  placeholder="購入数を入力してください">
+      <input type="tel" [(ngModel)]="amountOfTurnips" autocomplete="off" (ngModelChange)="update()"  placeholder="購入数を入力してください">
       <span>カブ</span>
     </div>
   </div>
@@ -54,7 +54,7 @@
   </div>
   <div class="input-row">
     <div class="container col-2">
-      <input type="number" step="1" min="0" max="3000" [(ngModel)]="priceForReference" (ngModelChange)="update()"  placeholder="価格を入力してください">
+      <input type="tel" autocomplete="off" maxlength="4" [(ngModel)]="priceForReference" (ngModelChange)="update()"  placeholder="価格を入力してください">
       <span>ベル</span>
     </div>
   </div>
