@@ -50,9 +50,9 @@ export class EditComponent implements OnInit {
 
   update () {
     this.storage.setData(StorageKeys.MARKET_WEEK_DATA, {
-      priceWhenPurchased: Number(this.basePrice),
-      priceForReference: Number(this.priceForReference),
-      amountOfTurnips: Number(this.amountOfTurnips),
+      priceWhenPurchased: this.basePrice ? Number(this.basePrice) : undefined,
+      priceForReference: this.priceForReference ? Number(this.priceForReference) : undefined,
+      amountOfTurnips: this.amountOfTurnips ? Number(this.amountOfTurnips) : undefined,
       weekData: [ ...this.weekdays.map(d => {
         return {
           ...d,
