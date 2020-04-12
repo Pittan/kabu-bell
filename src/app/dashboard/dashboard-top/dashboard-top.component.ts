@@ -5,6 +5,9 @@ import { faQuestion } from '@fortawesome/free-solid-svg-icons'
 import { faCoins } from '@fortawesome/free-solid-svg-icons/faCoins'
 import { flatten, last } from 'lodash-es'
 import { faSave } from '@fortawesome/free-solid-svg-icons/faSave'
+import { MatSnackBar } from '@angular/material/snack-bar'
+import { MatDialog } from '@angular/material/dialog'
+import { DownloadDialogComponent } from '../download-dialog/download-dialog.component'
 
 export function normalizeCommonJSImport<T> (
   importPromise: Promise<T>,
@@ -22,7 +25,9 @@ export class DashboardTopComponent implements OnInit {
 
   constructor (
     @Inject(PLATFORM_ID) private platformId: Object,
-    private storage: StorageService
+    private snack: MatSnackBar,
+    private storage: StorageService,
+    private dialog: MatDialog
   ) {
   }
 
@@ -114,16 +119,26 @@ export class DashboardTopComponent implements OnInit {
 
   async share () {
     if (isPlatformBrowser(this.platformId)) {
-      // Wait for dynamic import resolution
-      const canvasToImage = await normalizeCommonJSImport(
-        import(/* webpackChunkName: "canvas2image" */ 'canvas-to-image')
-      )
-      canvasToImage(document.querySelector('canvas.graph'), {
-        name: 'kabu-bell-chart',
-        type: 'png',
-        quality: 1
-      })
-      return
+      const isIOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.userAgent)
+      const element: HTMLCanvasElement = document.querySelector('canvas.graph')
+      if (!isIOS) {
+        const canvasToImage = await normalizeCommonJSImport(
+          import(/* webpackChunkName: "canvas2image" */ 'canvas-to-image')
+        )
+        canvasToImage(element, {
+          name: 'kabu-bell-chart',
+          type: 'png',
+          quality: 1
+        })
+        this.snack.open('保存しました', undefined, {
+          duration: 3000
+        })
+      } else {
+
+        this.dialog.open(DownloadDialogComponent, {
+          data: element.toDataURL()
+        })
+      }
     }
   }
 }
