@@ -25,23 +25,32 @@
   <a class="btn" routerLink="/edit">カブ価を入力する</a>
 </div>
 
-<div class="tips" *ngIf="amountOfTurnips">
+<div class="tips" *ngIf="amountOfTurnips && basePrice">
   <div class="title"><fa-icon [icon]="faCoins" size="1x"></fa-icon>損益計算</div>
-  <div class="description">
-    <span class="badge">購入</span>
-    <div class="section pl4">
-      {{basePrice | number}}<span class="unit">ベル</span> × {{amountOfTurnips | number}}<span class="unit">カブ</span> = {{buyingPrice | number}}<span class="unit">ベル</span><br>
+
+    <div class="description">
+      <span class="badge">購入</span>
+      <div class="section pl4">
+        {{basePrice | number}}<span class="unit">ベル</span> × {{amountOfTurnips | number}}<span class="unit">カブ</span> = {{buyingPrice | number}}<span class="unit">ベル</span><br>
+      </div>
+      <ng-container *ngIf="sellingPrice; else noProfitResult">
+        <span class="badge">売却</span><br>
+        <div class="section pl4">
+          {{sellingPrice / amountOfTurnips | number}}<span class="unit">ベル</span> × {{amountOfTurnips | number}}<span class="unit">カブ</span> = {{sellingPrice | number}}<span class="unit">ベル</span>
+        </div>
+        <hr>
+        <div class="section">今この時点で売ると...</div>
+        <div class="section profit">
+          {{profit | number}}<span class="unit">ベル</span> の{{profit > 0 ? '利益' : '損失'}}
+        </div>
+      </ng-container>
+      <ng-template #noProfitResult>
+        <span class="badge">売却</span><br>
+        <div class="section pl4">
+          月〜金のカブ価を入力すると、最新のカブ価時点で売却したときの損益を表示できます。
+        </div>
+      </ng-template>
     </div>
-    <span class="badge">売却</span><br>
-    <div class="section pl4">
-      {{sellingPrice / amountOfTurnips | number}}<span class="unit">ベル</span> × {{amountOfTurnips | number}}<span class="unit">カブ</span> = {{sellingPrice | number}}<span class="unit">ベル</span>
-    </div>
-    <hr>
-    <div class="section">今この時点で売ると...</div>
-    <div class="section profit">
-      {{profit | number}}<span class="unit">ベル</span> の{{profit > 0 ? '利益' : '損失'}}
-    </div>
-  </div>
 </div>
 
 <div class="tips" *ngIf="isBrowser">
