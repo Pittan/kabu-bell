@@ -4,6 +4,17 @@ import { isPlatformBrowser } from '@angular/common'
 import { faQuestion } from '@fortawesome/free-solid-svg-icons'
 import { faCoins } from '@fortawesome/free-solid-svg-icons/faCoins'
 import { flatten, last } from 'lodash-es'
+import { faSave } from '@fortawesome/free-solid-svg-icons/faSave'
+import { MatSnackBar } from '@angular/material/snack-bar'
+import { MatDialog } from '@angular/material/dialog'
+import { DownloadDialogComponent } from '../download-dialog/download-dialog.component'
+
+export function normalizeCommonJSImport<T> (
+  importPromise: Promise<T>,
+): Promise<T> {
+  // CommonJS's `module.exports` is wrapped as `default` in ESModule.
+  return importPromise.then((m: any) => (m.default || m) as T)
+}
 
 @Component({
   selector: 'app-dashboard-top',
@@ -14,12 +25,15 @@ export class DashboardTopComponent implements OnInit {
 
   constructor (
     @Inject(PLATFORM_ID) private platformId: Object,
-    private storage: StorageService
+    private snack: MatSnackBar,
+    private storage: StorageService,
+    private dialog: MatDialog
   ) {
   }
 
   faQuestion = faQuestion
   faCoins = faCoins
+  faSave = faSave
 
   isBrowser = false
 
@@ -103,14 +117,28 @@ export class DashboardTopComponent implements OnInit {
     this.storage.setData(StorageKeys.SHOWN_ADD_TO_HOME_SCREEN_ANNOUNCEMENT, true)
   }
 
-  // share () {
-  //   htmlToImage.toPng(this.graphElement.nativeElement)
-  //   .then(function (dataUrl) {
-  //     download(dataUrl, 'kabu-bell.png')
-  //   })
-  //   .catch(function (error) {
-  //     console.error('oops, something went wrong!', error)
-  //   })
-  // }
+  async share () {
+    if (isPlatformBrowser(this.platformId)) {
+      const isIOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.userAgent)
+      const element: HTMLCanvasElement = document.querySelector('canvas.graph')
+      if (!isIOS) {
+        const canvasToImage = await normalizeCommonJSImport(
+          import(/* webpackChunkName: "canvas2image" */ 'canvas-to-image')
+        )
+        canvasToImage(element, {
+          name: 'kabu-bell-chart',
+          type: 'png',
+          quality: 1
+        })
+        this.snack.open('保存しました', undefined, {
+          duration: 3000
+        })
+      } else {
 
+        this.dialog.open(DownloadDialogComponent, {
+          data: element.toDataURL()
+        })
+      }
+    }
+  }
 }
