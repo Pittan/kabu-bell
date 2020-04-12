@@ -201,6 +201,8 @@ export class MarketChartComponent implements AfterViewInit {
   clear () {
     const element = this.graph.nativeElement
     this.context.clearRect(0, 0, element.width, element.height)
+    this.context.fillStyle = '#ffffff'
+    this.context.fillRect(0, 0, element.width, element.height)
   }
 
   render () {
