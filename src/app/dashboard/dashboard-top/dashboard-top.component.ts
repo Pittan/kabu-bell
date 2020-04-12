@@ -39,6 +39,9 @@ export class DashboardTopComponent implements OnInit {
 
   @ViewChild('graphArea') graphElement: ElementRef<HTMLElement>
 
+  isIOS = false
+  isStandAlone = false
+
   noData = true
   loading = true
 
@@ -94,6 +97,13 @@ export class DashboardTopComponent implements OnInit {
     }
     this.loading = false
     this.update()
+
+    if (isPlatformBrowser(this.platformId)) {
+      this.isIOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.userAgent)
+      if (this.isIOS) {
+        this.isStandAlone = (navigator as any).standalone
+      }
+    }
   }
 
   update () {
@@ -119,24 +129,25 @@ export class DashboardTopComponent implements OnInit {
 
   async share () {
     if (isPlatformBrowser(this.platformId)) {
-      const isIOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.userAgent)
       const element: HTMLCanvasElement = document.querySelector('canvas.graph')
-      if (!isIOS) {
-        const canvasToImage = await normalizeCommonJSImport(
-          import(/* webpackChunkName: "canvas2image" */ 'canvas-to-image')
-        )
-        canvasToImage(element, {
-          name: 'kabu-bell-chart',
-          type: 'png',
-          quality: 1
-        })
-        this.snack.open('保存しました', undefined, {
-          duration: 3000
-        })
-      } else {
 
+      if (this.isIOS && !this.isStandAlone) {
         this.dialog.open(DownloadDialogComponent, {
           data: element.toDataURL()
+        })
+        return
+      }
+      const canvasToImage = await normalizeCommonJSImport(
+        import(/* webpackChunkName: "canvas2image" */ 'canvas-to-image')
+      )
+      canvasToImage(element, {
+        name: 'kabu-bell-chart',
+        type: 'png',
+        quality: 1
+      })
+      if (!this.isIOS) {
+        this.snack.open('保存しました', undefined, {
+          duration: 3000
         })
       }
     }
