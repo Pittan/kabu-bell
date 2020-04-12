@@ -4,8 +4,14 @@ import { isPlatformBrowser } from '@angular/common'
 import { faQuestion } from '@fortawesome/free-solid-svg-icons'
 import { faCoins } from '@fortawesome/free-solid-svg-icons/faCoins'
 import { flatten, last } from 'lodash-es'
-import canvasToImage from 'canvas-to-image'
 import { faSave } from '@fortawesome/free-solid-svg-icons/faSave'
+
+export function normalizeCommonJSImport<T> (
+  importPromise: Promise<T>,
+): Promise<T> {
+  // CommonJS's `module.exports` is wrapped as `default` in ESModule.
+  return importPromise.then((m: any) => (m.default || m) as T)
+}
 
 @Component({
   selector: 'app-dashboard-top',
@@ -106,12 +112,18 @@ export class DashboardTopComponent implements OnInit {
     this.storage.setData(StorageKeys.SHOWN_ADD_TO_HOME_SCREEN_ANNOUNCEMENT, true)
   }
 
-  share () {
-    canvasToImage(document.querySelector('canvas.graph'), {
-      name: 'name',
-      type: 'png',
-      quality: 1
-    })
+  async share () {
+    if (isPlatformBrowser(this.platformId)) {
+      // Wait for dynamic import resolution
+      const canvasToImage = await normalizeCommonJSImport(
+        import(/* webpackChunkName: "canvas2image" */ 'canvas-to-image')
+      )
+      canvasToImage(document.querySelector('canvas.graph'), {
+        name: 'name',
+        type: 'png',
+        quality: 1
+      })
+      return
+    }
   }
-
 }

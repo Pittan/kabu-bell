@@ -25,7 +25,7 @@
   <a class="btn" routerLink="/edit">カブ価を入力する</a>
 </div>
 
-<div class="input-group" *ngIf="data && !noData && !loading">
+<div class="input-group" *ngIf="data && !noData && !loading && isBrowser">
   <button class="button" (click)="share()"><fa-icon [icon]="faSave" size="1x"></fa-icon>チャートの画像を保存する</button>
 </div>
 
