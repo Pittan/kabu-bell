@@ -1,8 +1,8 @@
 <div class="graph-area" #graphArea>
-  <h2>{{islandName || '-------'}}島のカブ価</h2>
   <app-market-chart
     class="graph"
     *ngIf="data && !noData && !loading"
+    [islandName]="islandName || '-----------'"
     [data]="data"
     [basePrice]="basePrice"
     [referencePrice]="referencePrice"
@@ -23,6 +23,10 @@
 
 <div class="input-group" *ngIf="!loading && noData">
   <a class="btn" routerLink="/edit">カブ価を入力する</a>
+</div>
+
+<div class="input-group" *ngIf="data && !noData && !loading && isBrowser">
+  <button class="button" (click)="share()"><fa-icon [icon]="faSave" size="1x"></fa-icon>チャートの画像を保存する</button>
 </div>
 
 <div class="tips" *ngIf="amountOfTurnips && basePrice">

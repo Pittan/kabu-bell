@@ -31,6 +31,8 @@ export class MarketChartComponent implements AfterViewInit {
 
   private context: CanvasRenderingContext2D
 
+  @Input() islandName: string
+
   @Input()
   set data (d: number[]) {
     this._data = d
@@ -66,8 +68,9 @@ export class MarketChartComponent implements AfterViewInit {
   private _basePrice = 0
 
   private graphRect = { width: 0, height: 0 }
-
   private graphBase = { x: 0, y: 0 }
+  private offSetY = 0
+  private offSetX = 0
 
   private heightPerUnit = 0
 
@@ -75,13 +78,18 @@ export class MarketChartComponent implements AfterViewInit {
 
   private initialized = false
 
+  private static truncateString (str: string, len: number = 20) {
+    return str.length <= len ? str : (str.substr(0, len) + '...')
+  }
+
   /**
    * Setup canvas with hi-DPI support
    */
   setupCanvas (): CanvasRenderingContext2D {
     const canvas = this.graph.nativeElement
     const context = canvas.getContext('2d')
-    let dpr = window.devicePixelRatio || 1
+    // let dpr = window.devicePixelRatio || 1
+    let dpr = 4 // for hi-quality png export, set to 4x
     let rect = canvas.getBoundingClientRect()
     canvas.width = rect.width * dpr
     canvas.height = rect.height * dpr
@@ -93,20 +101,27 @@ export class MarketChartComponent implements AfterViewInit {
    * Render background with nice stripes
    */
   private renderBackground (context: CanvasRenderingContext2D): void {
-    const width = this.graph.nativeElement.clientWidth / 6
-    const height = this.graph.nativeElement.clientHeight
+    const width = this.graphRect.width / 6
+    const height = this.graphRect.height
     WEEKDAYS.forEach((val, i) => {
       context.fillStyle = i % 2 ? BG_2 : BG_1
-      context.fillRect(i * width, 0, width, height - FOOTER_HEIGHT)
+      context.fillRect((i * width) + this.offSetX, this.offSetY, width, height - FOOTER_HEIGHT)
     })
+
+    const logo = new Image()
+    logo.onload = () => {
+      context.drawImage(logo, 0, 0, 96, 96, this.offSetX + 10, this.offSetY + 10, 20, 20)
+    }
+    logo.src = 'assets/icons/graph-watermark.png'
+
   }
 
   private renderLine (context: CanvasRenderingContext2D, bellPrice: number, lineWidth: number, dash: number): void {
     if (!bellPrice) return
     context.beginPath()
     context.setLineDash([dash, dash])
-    context.moveTo(0, this.graphBase.y - this.heightPerUnit * bellPrice)
-    context.lineTo(this.graphRect.width, this.graphBase.y - this.heightPerUnit * bellPrice)
+    context.moveTo(this.offSetX, this.graphBase.y - this.heightPerUnit * bellPrice)
+    context.lineTo(this.offSetX + this.graphRect.width, this.graphBase.y - this.heightPerUnit * bellPrice)
     context.strokeStyle = BASE_PRICE_COLOR_TRANSPARENT
     context.fillStyle = BASE_PRICE_COLOR_TRANSPARENT
     context.lineWidth = lineWidth
@@ -124,8 +139,8 @@ export class MarketChartComponent implements AfterViewInit {
     this.context.fillStyle = 'rgba(255, 255, 255, .8)'
     const height = 20
     const padding = 10
-    const x = this.graphRect.width - padding - width
-    this.roundRect(this.context, x, padding, width, height, 5, true, false)
+    const x = this.graphRect.width - padding - width + this.offSetX
+    this.roundRect(this.context, x, this.offSetY + padding, width, height, 5, true, false)
 
     this.context.strokeStyle = BASE_PRICE_COLOR_TRANSPARENT
     this.context.fillStyle = BASE_PRICE_COLOR_TRANSPARENT
@@ -143,21 +158,21 @@ export class MarketChartComponent implements AfterViewInit {
     if (basePrice) {
       this.context.beginPath()
       this.context.setLineDash([4, 4])
-      this.context.moveTo(x + 8, padding + 10.5)
-      this.context.lineTo(x + 28, padding + 10.5)
+      this.context.moveTo(x + 8, this.offSetY + padding + 10.5)
+      this.context.lineTo(x + 28, this.offSetY + padding + 10.5)
       this.context.lineWidth = 2
       this.context.stroke()  // サブパスを描画
-      renderPrice(this.context, basePrice, 'ベル(買値)', x + 28 + 4, padding + 14)
+      renderPrice(this.context, basePrice, 'ベル(買値)', x + 28 + 4, this.offSetY + padding + 14)
     }
 
     if (referencePrice) {
       this.context.beginPath()
       this.context.setLineDash([2, 2])
       this.context.lineWidth = 1
-      this.context.moveTo(x + WIDTH_PER_DATA + 8, padding + 11)
-      this.context.lineTo(x + WIDTH_PER_DATA + 28, padding + 11)
+      this.context.moveTo(x + WIDTH_PER_DATA + 8, this.offSetY + padding + 11)
+      this.context.lineTo(x + WIDTH_PER_DATA + 28, this.offSetY + padding + 11)
       this.context.stroke()  // サブパスを描画
-      renderPrice(this.context, referencePrice, 'ベル(参考)', x + WIDTH_PER_DATA + 28 + 4, padding + 14)
+      renderPrice(this.context, referencePrice, 'ベル(参考)', x + WIDTH_PER_DATA + 28 + 4, this.offSetY + padding + 14)
     }
   }
 
@@ -207,10 +222,12 @@ export class MarketChartComponent implements AfterViewInit {
     if (!this.initialized) return
     this.clear()
     const element = this.graph.nativeElement
-    let groundW = element.clientWidth // グラフ領域W
-    let groundH = element.clientHeight// グラフ領域H
-    let groundX0 = 16      // 原点位置(16)
-    let groundY0 = groundH - FOOTER_HEIGHT   // 原点位置(300)
+    this.offSetX = 8
+    let groundW = element.clientWidth - this.offSetX * 2 // グラフ領域W
+    this.offSetY = (element.clientHeight / 10)
+    let groundH = element.clientHeight - this.offSetY // グラフ領域H
+    let groundX0 = 16 + this.offSetX      // 原点位置(16)
+    let groundY0 = groundH + this.offSetY - FOOTER_HEIGHT   // 原点位置(300)
 
     this.graphRect = { height: groundH, width: groundW }
     this.graphBase = { x: groundX0, y: groundY0 }
@@ -220,6 +237,9 @@ export class MarketChartComponent implements AfterViewInit {
 
     const DmYMx = Math.max(...this.data, this.basePrice)
     this.heightPerUnit = (groundH - 90) / DmYMx
+
+    this.context.fillStyle = '#ffffff'
+    this.roundRect(this.context, 0, 0, element.clientWidth, element.clientHeight, 5, true, false)
 
     this.context.beginPath()                  // 現在のパスをリセット
     this.context.save()                       // 現在の描画条件を保管
@@ -241,8 +261,26 @@ export class MarketChartComponent implements AfterViewInit {
     const pitch = groundW / WEEKDAYS.length
     WEEKDAYS.forEach((val, i) => {
       const textWidth = this.context.measureText(val).width
-      this.context.fillText(val , groundX0 + (i * pitch) + (pitch / 2) - textWidth - 4, groundH - FOOTER_HEIGHT + 4)
+      this.context.fillText(val , groundX0 + (i * pitch) + (pitch / 2) - textWidth - 4, groundH + this.offSetY - FOOTER_HEIGHT + 4)
     })
+
+    this.context.textAlign = 'left'
+    this.context.textBaseline = 'bottom'
+    this.context.font = '12px sans-serif'
+    const islandName = `${MarketChartComponent.truncateString(this.islandName)}`
+    const textWidth = this.context.measureText(islandName).width
+
+    this.context.font = '10px sans-serif'
+    const suffix = '島のカブ価'
+    const suffixWidth = this.context.measureText(suffix).width
+
+
+    const labelStartX = (this.graphRect.width / 2) - ((textWidth + suffixWidth) / 2) + 6
+    this.context.font = '12px sans-serif'
+    this.context.fillText(islandName, labelStartX, this.offSetY)
+
+    this.context.font = '10px sans-serif'
+    this.context.fillText(suffix , labelStartX + textWidth, this.offSetY)
 
     // line
     this.context.restore()                    // 描画条件を元に戻す
@@ -314,5 +352,4 @@ export class MarketChartComponent implements AfterViewInit {
     }
 
   }
-
 }
