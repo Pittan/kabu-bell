@@ -2148,6 +2148,11 @@ canonical-path@1.0.0:
   resolved "https://registry.yarnpkg.com/canonical-path/-/canonical-path-1.0.0.tgz#fcb470c23958def85081856be7a86e904f180d1d"
   integrity sha512-feylzsbDxi1gPZ1IjystzIQZagYYLvfKrSuygUCgf7z6x790VEzze5QEkdSV1U58RA7Hi0+v6fv4K54atOzATg==
 
+canvas-to-image@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/canvas-to-image/-/canvas-to-image-2.2.0.tgz#6499ef16f058aaaa9d7eaf66344b1b19a73078ad"
+  integrity sha512-B75aD8NNrbRpt7YbqNRBdhpVBnmo9sDpIoZHKtxecmRUS+gqg374dDwvPiowZ1qTk3aDz2rsTPBugClyiDx8+w==
+
 caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"

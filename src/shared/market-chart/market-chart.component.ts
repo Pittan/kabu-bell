@@ -107,6 +107,13 @@ export class MarketChartComponent implements AfterViewInit {
       context.fillStyle = i % 2 ? BG_2 : BG_1
       context.fillRect((i * width) + this.offSetX, this.offSetY, width, height - FOOTER_HEIGHT)
     })
+
+    const logo = new Image()
+    logo.onload = () => {
+      context.drawImage(logo, 0, 0, 96, 96, this.offSetX + 10, this.offSetY + 10, 20, 20)
+    }
+    logo.src = 'assets/icons/graph-watermark.png'
+
   }
 
   private renderLine (context: CanvasRenderingContext2D, bellPrice: number, lineWidth: number, dash: number): void {

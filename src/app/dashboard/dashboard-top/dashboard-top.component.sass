@@ -1,3 +1,5 @@
+$button-color: #6D985A
+
 \:host
   display: block
   padding: 16px
@@ -81,6 +83,25 @@
     font-size: 12px
     margin-bottom: 4px
 
+  button.button
+    width: 100%
+    height: 40px
+    border-radius: 5px
+    border: none
+    background-color: $button-color
+    color: #ffffff
+    font-size: 12px
+    font-weight: bold
+
+    fa-icon
+      margin-right: 4px
+
+    &:not(:last-child)
+      margin-bottom: 8px
+
+    &:active
+      background-color: darken($button-color, 10%)
+
 .tips
   color: #414141
   background-color: #fff
@@ -129,28 +150,6 @@
       &.pl4
         margin-top: 2px
         padding-left: 4px
-
-
-$button-color: #6D985A
-.btn
-  display: flex
-  align-items: center
-  justify-content: center
-  width: 100%
-  height: 40px
-  border-radius: 5px
-  border: none
-  background-color: $button-color
-  color: #ffffff
-  font-size: 16px
-  font-weight: bold
-  text-decoration: none
-
-  &:not(:last-child)
-    margin-bottom: 8px
-
-  &:active
-    background-color: darken($button-color, 10%)
 
 .announcement
   position: fixed

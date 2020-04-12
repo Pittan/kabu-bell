@@ -25,6 +25,10 @@
   <a class="btn" routerLink="/edit">カブ価を入力する</a>
 </div>
 
+<div class="input-group" *ngIf="data && !noData && !loading">
+  <button class="button" (click)="share()"><fa-icon [icon]="faSave" size="1x"></fa-icon>チャートの画像を保存する</button>
+</div>
+
 <div class="tips" *ngIf="amountOfTurnips && basePrice">
   <div class="title"><fa-icon [icon]="faCoins" size="1x"></fa-icon>損益計算</div>
 

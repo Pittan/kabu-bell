@@ -4,6 +4,8 @@ import { isPlatformBrowser } from '@angular/common'
 import { faQuestion } from '@fortawesome/free-solid-svg-icons'
 import { faCoins } from '@fortawesome/free-solid-svg-icons/faCoins'
 import { flatten, last } from 'lodash-es'
+import canvasToImage from 'canvas-to-image'
+import { faSave } from '@fortawesome/free-solid-svg-icons/faSave'
 
 @Component({
   selector: 'app-dashboard-top',
@@ -20,6 +22,7 @@ export class DashboardTopComponent implements OnInit {
 
   faQuestion = faQuestion
   faCoins = faCoins
+  faSave = faSave
 
   isBrowser = false
 
@@ -103,14 +106,12 @@ export class DashboardTopComponent implements OnInit {
     this.storage.setData(StorageKeys.SHOWN_ADD_TO_HOME_SCREEN_ANNOUNCEMENT, true)
   }
 
-  // share () {
-  //   htmlToImage.toPng(this.graphElement.nativeElement)
-  //   .then(function (dataUrl) {
-  //     download(dataUrl, 'kabu-bell.png')
-  //   })
-  //   .catch(function (error) {
-  //     console.error('oops, something went wrong!', error)
-  //   })
-  // }
+  share () {
+    canvasToImage(document.querySelector('canvas.graph'), {
+      name: 'name',
+      type: 'png',
+      quality: 1
+    })
+  }
 
 }
