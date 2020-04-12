@@ -119,7 +119,7 @@ export class DashboardTopComponent implements OnInit {
         import(/* webpackChunkName: "canvas2image" */ 'canvas-to-image')
       )
       canvasToImage(document.querySelector('canvas.graph'), {
-        name: 'name',
+        name: 'kabu-bell-chart',
         type: 'png',
         quality: 1
       })
