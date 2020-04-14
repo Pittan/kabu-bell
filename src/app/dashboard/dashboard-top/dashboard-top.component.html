@@ -26,6 +26,9 @@
 </div>
 
 <div class="input-group" *ngIf="data && !noData && !loading && isBrowser">
+  <div class="description" *ngIf="isIOS && isStandAlone">
+    新しく開く画面から、シェアボタンをタップして画像を保存してください。
+  </div>
   <button class="button" (click)="share()"><fa-icon [icon]="faSave" size="1x"></fa-icon>チャートの画像を保存する</button>
 </div>
 
