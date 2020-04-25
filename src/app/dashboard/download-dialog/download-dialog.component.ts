@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core'
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
+import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 
 @Component({
   selector: 'app-download-dialog',
@@ -7,8 +7,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
   styleUrls: ['./download-dialog.component.sass']
 })
 export class DownloadDialogComponent {
-
   constructor (
-    public dialogRef: MatDialogRef<DownloadDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: string) {}
+    @Inject(MAT_DIALOG_DATA) public data: string
+  ) {}
 }

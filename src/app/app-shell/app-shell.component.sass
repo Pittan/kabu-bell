@@ -1,13 +1,15 @@
+@import '../../colors'
+
 \:host
   display: block
   min-height: 100vh
-  background-color: #E4E6D6
+  background-color: $page-background-color
   padding: 16px
   width: 100vw
   overflow-x: hidden
 
 .graph-area
-  background-color: #ffffff
+  background-color: $chart-area-background-color-base
   border-radius: 10px
   padding: 16px 16px 8px
   margin-bottom: 8px
@@ -55,7 +57,7 @@
 
     .col
       flex: 1
-      background-color: #E8D4BD
+      background-color: $chart-area-background-color-even
 
       &:nth-child(odd)
-        background-color: #FFEFDD
+        background-color: $chart-area-background-color-odd
